@@ -5,43 +5,43 @@ import axios from 'axios';
 
 function CountryDetails() {
   const {countryId} = useParams();
-  const {country, setCountry} = useState(null);
+  const [oneCountry, setOneCountry]= useState(null);
 
-  const getCountry = async () => {
+  const getFromApi = async () => {
     try {
-      const response = await axios.get(`https://ih-countries-api.herokuapp.com/countries/${countryId}`);
-      const country = response.data;
-      setCountry(country);
+      const apiCall = await axios.get(`https://ih-countries-api.herokuapp.com/countries/${countryId}`);
+      
+    setOneCountry(apiCall.data); 
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    getCountry();
+    getFromApi();
   }, [countryId]);
 
   
   return (
     <div>
-{country && 
+{oneCountry && 
      (   
            
            
            <div className="col-7">
-           <img src={`https://flagpedia.net/data/flags/icon/72x54/${country.alpha2Code.toLowerCase()}.png`} alt="" />
-            <h1>{country.name.common}</h1>
+           <img src={`https://flagpedia.net/data/flags/icon/72x54/${oneCountry.alpha2Code.toLowerCase()}.png`} alt="flag" />
+            <h1>{oneCountry.name.common}</h1>
             <table className="table">
               <thead></thead>
               <tbody>
                 <tr>
                   <td>Capital</td>
-                  <td>{country.capital}</td>
+                  <td>{oneCountry.capital}</td>
                 </tr>
                 <tr>
                   <td>Area</td>
                   <td>
-                    {country.area}
+                    {oneCountry.area}
                     <sup>2</sup>
                   </td>
                 </tr>
@@ -49,8 +49,8 @@ function CountryDetails() {
                   <td>Borders</td>
                   <td>
                     <ul>
-                    {country.borders.map((eachCountry)=>{
-                        return (<li>{eachCountry}</li>)
+                    {oneCountry.borders.map((country)=>{
+                        return (<li>{country}</li>)
                     })}
                     </ul>
                   </td>

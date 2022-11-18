@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 
-function CountriesList() {
+function CountriesList(props) {
+  const {countries} = props;
 
-    const [countries, setCountries] = useState([]);
+   /*  const [countries, setCountries] = useState([]);
     const [fetching, setFetching] = useState(true);
   
     const getCountries = async () => {
@@ -26,13 +27,15 @@ function CountriesList() {
   
     if (fetching) {
       return <h1>Loading...</h1>;
-    } else {
-      return (
+    } else { */
+      
+    return (
         <div>
           {countries.map((country) => {
             return (
-                <div key={country.name} className="countrieslist">
-                <Link to={`/${country.alfa3code}`}><p>{country.name.common}</p></Link>
+                <div>
+
+                <Link to={`/${country.alpha3Code}`}><p>{country.name.common}</p></Link>
                 
                 </div>
             );
@@ -40,6 +43,7 @@ function CountriesList() {
         </div>
       );
     }
-}
+    
+/* } */
 
 export default CountriesList
